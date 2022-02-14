@@ -1,6 +1,0 @@
-sides 2 6: Rectangle’s perimeter is 16.00 and area is 12.00
-sides 2 3: Rectangle’s perimeter is 10.00 and area is 6.00
-radius 5: Circle’s circumference is 31.42 and area is 78.54
-sides 2 8: Rectangle’s perimeter is 20.00 and area is 16.00
-radius 5: Circle’s circumference is 31.42 and area is 78.54
-sides 9 8: Rectangle’s perimeter is 34.00 and area is 72.00
