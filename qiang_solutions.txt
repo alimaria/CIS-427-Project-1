@@ -1,0 +1,4 @@
+sides 2 2: Rectangle’s perimeter is 8.00 and area is 4.00
+
+radius 4: Circle’s circumference is 25.13 and area is 50.27
+sides 6 7: Rectangle’s perimeter is 26.00 and area is 42.00
