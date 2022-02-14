@@ -155,5 +155,6 @@ The known bugs we have found in our project is we have been running the client b
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 OUTPUTS:
-Outputs for all commands from the client side are found in the 'outputs.pdf' file right above this read me file! Please check that out for an organized showcasing of all the commands.
+Outputs for all commands from the client side are found in the 'outputs.pdf' file right above this read me file! Please check that out for an organized showcasing of all the commands. Server and Client source codes can be found in the src folder!
+
 
