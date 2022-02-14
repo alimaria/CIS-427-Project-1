@@ -1,0 +1,10 @@
+radius 4: Circle’s circumference is 25.13 and area is 50.27
+sides 2 2: Rectangle’s perimeter is 8.00 and area is 4.00
+Error: No radius found
+sides 6 9: Rectangle’s perimeter is 30.00 and area is 54.00
+radius 4: Circle’s circumference is 25.13 and area is 50.27
+radius 7: Circle’s circumference is 43.98 and area is 153.94
+radius 4: Circle’s circumference is 25.13 and area is 50.27
+sides 5 8: Rectangle’s perimeter is 26.00 and area is 40.00
+sides 3 3: Rectangle’s perimeter is 12.00 and area is 9.00
+radius 3: Circle’s circumference is 18.85 and area is 28.27
