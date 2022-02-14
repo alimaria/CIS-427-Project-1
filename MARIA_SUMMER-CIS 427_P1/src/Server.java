@@ -130,7 +130,7 @@ public class Server {
                             dout.writeUTF(result);
                             dout.flush();
                         } 
-                        "else if statement to show what every user has done, but only to root user
+                        //else if statement to show what ever user has done, but only to root user
                         else if (str.split(" ").length == 2) {
                             if (user.equals("root")) {
                                 String result = "";
@@ -159,7 +159,7 @@ public class Server {
                             }
                         }
                     }
-                    //invalide command statement
+                    //invalid command statement
                     else {
                        dout.writeUTF("300 invalid command!");
                         dout.flush();
