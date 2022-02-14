@@ -2,22 +2,27 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
+//server class to create socket/port connection with client, as well as all the commands to be executed by client
 public class Server {
-
+    
+    //variables
     private static ArrayList<String> logins = new ArrayList<>();
     static boolean loggedIn = false;
     static String user = "";
     static BufferedWriter bw = null;
 
+    //main
     public static void main(String args[]) {
         readData();
         try {
             ServerSocket ss = new ServerSocket(9034);
             Socket s = ss.accept();
-            DataInputStream din = new DataInputStream(s.getInputStream());
-            DataOutputStream dout = new DataOutputStream(s.getOutputStream());
+            DataInputStream din = new DataInputStream(s.getInputStream()); //input variable
+            DataOutputStream dout = new DataOutputStream(s.getOutputStream()); //output variable
             String str = "";
-            dout.writeUTF("Please type 'LOGIN' followed by your username, space, and then your password. Then hit enter.");
+            dout.writeUTF("Please type 'LOGIN' followed by your username, space, and then your password. Then hit enter."); //message to client before commands code for login
+            
+            //while loop, checks if "LOGIN" is correctly done (based on usernames/password in "logins.txt" folder)
             while (true) {
                 str = din.readUTF();
                 if (loggedIn == false && str.startsWith("LOGIN"))
@@ -27,14 +32,15 @@ public class Server {
                     if (logins.contains(u + " " + p)) {
                         loggedIn = true;
                         user = u;
-                        dout.writeUTF("SUCCESS\nPlease type 'SOLVE' followed by -c or -r (for circle or rectangle), and then the number and hit enter!");
+                        dout.writeUTF("SUCCESS\nPlease type 'SOLVE' followed by -c or -r (for circle or rectangle), and then the number and hit enter!"); //output message after sucessful login, instructing user on next steps
                         dout.flush();
                     } else {
-                        dout.writeUTF("FAILURE: Please provide correct username and password. Try again");
+                        dout.writeUTF("FAILURE: Please provide correct username and password. Try again"); //if login attempt with an account not in logins.txt
                         dout.flush();
                     }
                     continue;
                 }
+                //shutdown command, system closes if "SHUTDOWN" is entered
                 if (loggedIn) {
                     if (str.equalsIgnoreCase("SHUTDOWN")) {
                         dout.writeUTF("200 ok");
@@ -44,14 +50,17 @@ public class Server {
                         ss.close();
                         System.exit(0);
                     }
+                    //LOGOUT command
                     else if (str.equalsIgnoreCase("LOGOUT")) {
                         dout.writeUTF("200 ok");
                         dout.flush();
                     }
+                    //SOLVE command
                     else if (str.startsWith("SOLVE")) {
-                        bw = new BufferedWriter(new FileWriter(user + "_solutions.txt", true));
+                        bw = new BufferedWriter(new FileWriter(user + "_solutions.txt", true)); //creats a text file with username where every input is appended
                         String[] shape = str.split(" ");
-                        if (shape[1].equals("-c")) {  //CIRCLE
+                        //code for -c, circle, includes circumference + area formula and output messages
+                        if (shape[1].equals("-c")) {  
                             if (shape.length == 3) {
                                 int radius = Integer.parseInt(shape[2]);
                                 double circum = 2 * Math.PI * radius;
@@ -71,7 +80,9 @@ public class Server {
                                 bw.newLine();
                                 bw.close();
                             }
-                        } else if (shape[1].equals("-r")) {    //RECT with 1 value
+                        } 
+                        //code for -r, rectangle, includes what to do if only one number is entered, how to find area, and perimetet + messages to client
+                        else if (shape[1].equals("-r")) {    
                             if (shape.length == 3) {
                                 int length = Integer.parseInt(shape[2]);
                                 double perimeter = 2 * (length + length);
@@ -106,7 +117,9 @@ public class Server {
                             }
                         }
 
-                    } else if (str.startsWith("LIST")) {
+                    } 
+                    //LIST command, outputs everything client logged in has ever done if they write "LIST"
+                    else if (str.startsWith("LIST")) {
                         if (str.equals("LIST")) {
                             Scanner sc = new Scanner(new File(user + "_solutions.txt"));
                             String result = user + "\n";
@@ -116,7 +129,9 @@ public class Server {
                             }
                             dout.writeUTF(result);
                             dout.flush();
-                        } else if (str.split(" ").length == 2) {
+                        } 
+                        "else if statement to show what every user has done, but only to root user
+                        else if (str.split(" ").length == 2) {
                             if (user.equals("root")) {
                                 String result = "";
                                 for (int a = 0; a < logins.size(); a++) {
@@ -136,12 +151,15 @@ public class Server {
                                 }
                                 dout.writeUTF(result);
                                 dout.flush();
-                            } else {
+                            }
+                            //output if another client tries to list all 
+                            else {
                                 dout.writeUTF("Error: you are not the root user");
                                 dout.flush();
                             }
                         }
                     }
+                    //invalide command statement
                     else {
                        dout.writeUTF("300 invalid command!");
                         dout.flush();
@@ -154,9 +172,12 @@ public class Server {
         }
     }
 
+    //function to read data from logins.txt file
     public static void readData() {
         try {
-            Scanner in = new Scanner(new File("C:\\Users\\salra\\IdeaProjects\\JavaProject1\\logins.txt"));
+            //directory to computer, directory has to be changed 
+            //if being ran on another computer to the directory of that logins.txt file
+            Scanner in = new Scanner(new File("C:\\Users\\salra\\IdeaProjects\\JavaProject1\\logins.txt")); 
             while (in.hasNextLine()) {
                 String line = in.nextLine();
                 logins.add(line);
